@@ -21,9 +21,10 @@ export const injector = {
   bind: function <T extends Object>(classConstructor: Newable<T>): BindCases<T> {
     return {
       toInstance: (instance: T): void => {
-        let classId = Object.prototype.hasOwnProperty.call(classConstructor, INJECTION_INSTANCE_CLASSID) &&
-          (classConstructor as any)[INJECTION_INSTANCE_CLASSID];
-        if (!classId) {
+        let classId: number;
+        if (Object.prototype.hasOwnProperty.call(classConstructor, INJECTION_INSTANCE_CLASSID)) {
+          classId = (classConstructor as any)[INJECTION_INSTANCE_CLASSID]
+        } else {
           (classConstructor as any)[INJECTION_INSTANCE_CLASSID] = classId = ++instanceId;
         }
         const prevBind = kernel.get(classId);
