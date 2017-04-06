@@ -36,7 +36,6 @@ export const injector = {
   },
   clean: function (): void {
     kernel.clear();
-    instanceId = 0;
   }
 };
 
